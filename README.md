@@ -25,17 +25,23 @@ pip install -e .
 
 ## Configuration
 
-Set your OpenAI API key as an environment variable:
+Create a `.env` file in the project root with your GitHub token:
 
 ```bash
-export OPENAI_API_KEY="your-api-key-here"
+# Get your token (requires gh CLI to be authenticated)
+gh auth token
+
+# Create the .env file
+echo "GITHUB_TOKEN=$(gh auth token)" > .env
 ```
 
-Or create a `.env` file in the project root:
+Or manually create `.env`:
 
 ```
-OPENAI_API_KEY=your-api-key-here
+GITHUB_TOKEN=your-github-token-here
 ```
+
+The token is used to access GitHub Models (GPT-4o) for recipe extraction — no billing required.
 
 ## Usage
 
@@ -86,7 +92,8 @@ pytest
 ## Requirements
 
 - Python 3.11+
-- An OpenAI API key
+- A GitHub account (for free access to GitHub Models)
+- `gh` CLI authenticated (`gh auth login`)
 - YouTube videos must have captions/subtitles available
 
 ## License
