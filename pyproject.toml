@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "youtube-recipe-extractor"
+version = "0.1.0"
+description = "Extract recipes from YouTube cooking videos into clean markdown"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "youtube-transcript-api>=0.6.1",
+    "openai>=1.0.0",
+    "click>=8.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-mock>=3.0",
+]
+
+[project.scripts]
+recipe-extractor = "recipe_extractor.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
