@@ -11,7 +11,7 @@ from openai import OpenAI
 load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
 GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference"
-DEFAULT_MODEL = "openai/gpt-4o"
+DEFAULT_MODEL = "openai/gpt-4o-mini"
 
 SYSTEM_PROMPT = """\
 You are a recipe extraction assistant. You will be given a transcript from a YouTube video.
