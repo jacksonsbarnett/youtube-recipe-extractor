@@ -10,8 +10,8 @@ from openai import OpenAI
 # Load .env from project root
 load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
-GITHUB_MODELS_ENDPOINT = "https://models.inference.ai.github.com"
-DEFAULT_MODEL = "gpt-4o"
+GITHUB_MODELS_ENDPOINT = "https://models.github.ai/inference"
+DEFAULT_MODEL = "openai/gpt-4o"
 
 SYSTEM_PROMPT = """\
 You are a recipe extraction assistant. You will be given a transcript from a YouTube video.
