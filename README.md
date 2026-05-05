@@ -5,7 +5,7 @@ A CLI tool that extracts recipes from YouTube cooking videos and formats them as
 ## How It Works
 
 1. Fetches the video transcript (captions) from YouTube
-2. Sends the transcript to OpenAI GPT-4o to identify and extract the recipe
+2. Sends the transcript to GPT-4o-mini via GitHub Models to identify and extract the recipe
 3. Outputs a formatted markdown file with the dish name, ingredients, and steps
 
 ## Installation
@@ -25,23 +25,28 @@ pip install -e .
 
 ## Configuration
 
-Create a `.env` file in the project root with your GitHub token:
+This tool uses [GitHub Models](https://github.com/marketplace/models) (free) for AI-powered recipe extraction. You'll need a GitHub Personal Access Token (PAT) with model permissions.
 
-```bash
-# Get your token (requires gh CLI to be authenticated)
-gh auth token
+### Creating your token
 
-# Create the .env file
-echo "GITHUB_TOKEN=$(gh auth token)" > .env
+1. Go to [github.com/settings/tokens?type=beta](https://github.com/settings/tokens?type=beta) (Fine-grained tokens)
+2. Click **"Generate new token"**
+3. Give it a name (e.g., `recipe-extractor`)
+4. Set an expiration (e.g., 90 days)
+5. Under **Account permissions**, set **"Models"** to **"Read"**
+6. Click **"Generate token"** and copy the value
+
+> ⚠️ The `models:read` permission is required. Without it, you'll get a `403 no_access` error.
+
+### Setting up the `.env` file
+
+Create a `.env` file in the project root:
+
+```
+GITHUB_TOKEN=github_pat_xxxxx...
 ```
 
-Or manually create `.env`:
-
-```
-GITHUB_TOKEN=your-github-token-here
-```
-
-The token is used to access GitHub Models (GPT-4o) for recipe extraction — no billing required.
+The token is used to access GitHub Models (GPT-4o-mini) for recipe extraction — no billing required.
 
 ## Usage
 
@@ -93,8 +98,18 @@ pytest
 
 - Python 3.11+
 - A GitHub account (for free access to GitHub Models)
-- `gh` CLI authenticated (`gh auth login`)
-- YouTube videos must have captions/subtitles available
+- A fine-grained PAT with `models:read` permission (see [Configuration](#configuration))
+- YouTube videos must have English captions/subtitles available
+
+## Troubleshooting
+
+| Error | Solution |
+|-------|----------|
+| `403 no_access` | Your token is missing the `models:read` permission. Edit it at [github.com/settings/tokens](https://github.com/settings/tokens). |
+| `Authentication failed` | Your token may be expired. Regenerate it. |
+| `Transcripts are disabled` | The video owner hasn't enabled captions. Try a different video. |
+| `No English transcript found` | The video only has non-English captions. |
+| `Connection error` | Check your internet connection. |
 
 ## License
 
