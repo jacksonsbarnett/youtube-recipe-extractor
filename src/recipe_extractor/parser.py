@@ -2,8 +2,13 @@
 
 import json
 import os
+from pathlib import Path
 
+from dotenv import load_dotenv
 from openai import OpenAI
+
+# Load .env from project root
+load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
 GITHUB_MODELS_ENDPOINT = "https://models.inference.ai.github.com"
 DEFAULT_MODEL = "gpt-4o"
